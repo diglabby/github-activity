@@ -193,6 +193,21 @@ var GitHubActivity = (function() {
       request.onerror = function() { callback('An error occurred connecting to ' + url); };
       request.send();
     },
+    
+    sendArrayToPhp: function(url, repositories) {
+      var request = new XMLHttpRequest();
+      request.open('POST', url, true);
+      request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+      request.onreadystatechange = function() {
+      	  if (request.readyState === 4) {
+           if (request.status !== 200) console.error("error");
+          }
+      };
+
+      request.send(repositories);
+    },
+    
     renderStream: function(output, div) {
       div.innerHTML = Mustache.render(templates.Stream, { text: output, footer: templates.Footer });
       div.style.position = 'relative';
@@ -249,13 +264,18 @@ var GitHubActivity = (function() {
       }
     }
 
+    if (!!options.handler && !!options.repositories) {
+    	var repositories = JSON.stringify(options.repositories);
+    	methods.sendArrayToPhp(options.handler, repositories);
+    }
+
     methods.getOutputFromRequest(userUrl, function(error, output) {
       if (error) {
         header = Mustache.render(templates.UserNotFound, { username: options.username });
       } else {
-        header = methods.getHeaderHTML(output)
+        header = methods.getHeaderHTML(output);
       }
-      methods.renderIfReady(selector, header, activity)
+      methods.renderIfReady(selector, header, activity);
     });
 
     methods.getOutputFromRequest(eventsUrl, function(error, output) {
