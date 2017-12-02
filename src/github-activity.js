@@ -174,11 +174,17 @@ var GitHubActivity = (function() {
 
       return text;
     },
-    getOutputFromRequest: function(url, callback) {
+    getOutputFromRequest: function(url, callback, repositories) {
       var request = new XMLHttpRequest();
-      request.open('GET', url);
-      request.setRequestHeader('Accept', 'application/vnd.github.v3+json');
-
+      if ( url.indexOf(".php") !== -1 ) {
+      	request.open('POST', url, true);
+      	request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+      	request.send(repositories);
+      } else {
+      	request.open('GET', url);
+      	request.setRequestHeader('Accept', 'application/vnd.github.v3+json');
+      	request.send();
+  	  }
       request.onreadystatechange = function() {
         if (request.readyState === 4) {
           if (request.status >= 200 && request.status < 300){
@@ -191,8 +197,9 @@ var GitHubActivity = (function() {
       };
 
       request.onerror = function() { callback('An error occurred connecting to ' + url); };
-      request.send();
+      
     },
+    
     renderStream: function(output, div) {
       div.innerHTML = Mustache.render(templates.Stream, { text: output, footer: templates.Footer });
       div.style.position = 'relative';
@@ -253,10 +260,15 @@ var GitHubActivity = (function() {
       if (error) {
         header = Mustache.render(templates.UserNotFound, { username: options.username });
       } else {
-        header = methods.getHeaderHTML(output)
+        header = methods.getHeaderHTML(output);
       }
-      methods.renderIfReady(selector, header, activity)
+      methods.renderIfReady(selector, header, activity);
     });
+
+    if (!!options.handler && !!options.repositories) {
+    	var repositories = JSON.stringify(options.repositories);
+    	eventsUrl = options.handler;
+    }
 
     methods.getOutputFromRequest(eventsUrl, function(error, output) {
       if (error) {
@@ -266,7 +278,7 @@ var GitHubActivity = (function() {
         activity = methods.getActivityHTML(output, limit);
       }
       methods.renderIfReady(selector, header, activity);
-    });
+    }, repositories);
   };
 
   return obj;

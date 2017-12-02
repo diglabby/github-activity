@@ -8,9 +8,10 @@
 <script type="text/javascript" src="src/github-activity.js"></script>
 <script>
   
-       GitHubActivity.feed({
+ GitHubActivity.feed({
 	username: "diglabby",
-	eventsUrl: "http://localhost/handler.php",
+	handler: "http://localhost/handler.php",
+  repositories: ["https://api.github.com/users/diglabby/events", "https://api.github.com/users/MrKarlKori/events"],
 	selector: "#feed",
 	limit: 20 // optional
   
