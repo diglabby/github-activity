@@ -188,6 +188,7 @@ var GitHubActivity = (function() {
       request.onreadystatechange = function() {
         if (request.readyState === 4) {
           if (request.status >= 200 && request.status < 300){
+            
             var data = JSON.parse(request.responseText);
             callback(undefined, data);
           } else {
@@ -218,6 +219,20 @@ var GitHubActivity = (function() {
       if (header && activity) {
         methods.writeOutput(selector, header + activity);
       }
+    },
+    parseRepositories: function(repos) {
+      var result = [];
+      for (var key in repos) {
+        if ( typeof repos[key] === 'string' ) {
+          result.push('https://api.github.com/users/' + repos[key] + '/events');
+        } else if ( typeof repos[key] === 'object' ) {
+          repos[key].forEach(function(item) {
+            result.push('https://api.github.com/repos/' + key + '/' + item + '/events');
+          });
+        }
+      }
+      console.log(JSON.stringify(result));
+      return result;
     }
   };
 
@@ -266,7 +281,8 @@ var GitHubActivity = (function() {
     });
 
     if (!!options.handler && !!options.repositories) {
-    	var repositories = JSON.stringify(options.repositories);
+      var repositories = methods.parseRepositories(options.repositories);
+    	repositories = JSON.stringify(repositories);
     	eventsUrl = options.handler;
     }
 
