@@ -1,10 +1,9 @@
-# GitHub Activity Stream Widget
+# Fork of GitHub Activity Stream Widget
 
-This is a small Javascript plugin that creates a stream of your recent GitHub activity. It displays the user's name, username, photo, and a list of each individual activity type. Click [here](https://caseyscarborough.github.io/github-activity) for a demo.
 
-A sample image of the activity stream is shown below:
+Данный модуль является форкам [данного модуля](https://github.com/caseyscarborough/github-activity). Наш модуль может отражать активность не только
+какого-то одного аккаунта или репозитория, а позволяет выводить на экран неограниченное их количество. Далее приводим текст установки  модуля: 
 
-![](https://raw.githubusercontent.com/caseyscarborough/github-activity/gh-pages/images/matz.png)
 
 ## Dependencies
 
@@ -28,7 +27,7 @@ npm install bower
 npm install grunt-cli
 
 # Clone the repository
-git clone https://github.com/caseyscarborough/github-activity.git
+git clone https://github.com/diglabby/github-activity.git
 cd github-activity
 
 # Install dependencies
@@ -53,20 +52,20 @@ GitHubActivity.feed({
 	username: "your-username",
 	repository: "your-repo", // optional
 	selector: "#feed",
+	handler: "pathToModule/handler.php" // optional
 	limit: 20 // optional
+	repositories:{list of users and repositories} // optional
 });
 ```
+## Возможны два варианта использования модуля:
+1) Оригинальная функциональность. Для ее достижение мы не указываемсвойства handler и repositories. Модуль будет отображать только активность одного пользователя указанного в свойстве username или активность одного репозитория, указанного в  свойствем repository. 
+2) Отображение активности множества разных репозиториев или юзеров. Для этого в поле username указываем ник пользователя, сведения о котором будут показываться в шапке модуля. В свойстве handler мы указываем путь до файла handler.php, который находится в папке модуля. В свойстве repositories указывается объект, хранящий список пользователей и отдельных репозиториев, которые необходимо отобразить в модуле гит-хаб активности. Список указывается следующим образом: для добавления всей активности конкретного пользователя, создаётся ключ в виде имени пользователя, которому строкой присвоено значение в виде этого же имени. Для добавления активности избранных репозиториев одного пользователя, создаётся ключ в виде имени пользователя, хранящего значение в виде массива, каждый элемент которого является именем нужного репозитория.
+Пример правильно прописанного свойства repositories:
+```js
+repositories: {
+  user:["repository1","repository2"],
+  MrKarlKori:"MrKarlKori"
+  }
+```
 
-## Credits
-
-* [MD5 Methods](http://www.myersdaily.org/joseph/javascript/md5-text.html)
-
-## Fork and Enjoy
-
-Please feel free to contribute to the application by following the steps below:
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+## Комментарии и форки приветствуются.
