@@ -188,7 +188,6 @@ var GitHubActivity = (function() {
       request.onreadystatechange = function() {
         if (request.readyState === 4) {
           if (request.status >= 200 && request.status < 300){
-            
             var data = JSON.parse(request.responseText);
             callback(undefined, data);
           } else {
@@ -231,7 +230,6 @@ var GitHubActivity = (function() {
           });
         }
       }
-      console.log(JSON.stringify(result));
       return result;
     }
   };
