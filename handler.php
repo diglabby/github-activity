@@ -1,7 +1,11 @@
 <?php
 
-$urls = array ('https://api.github.com/repos/diglabby/blog/events',
-'https://api.github.com/users/tyuba4/events', 'https://api.github.com/repos/diglabby/liga/events');
+
+$postdata = file_get_contents("php://input");
+
+$urls = json_decode($postdata);
+///////////////////////////////////////////////////////////////////////////////
+
    
 function getActivityFromServer($url){
     $ch = curl_init();
@@ -39,9 +43,3 @@ function sorta($a, $b) {
 usort($arrResult, 'sorta');   
 echo json_encode($arrResult);
     
-
-
-
-
-
-
