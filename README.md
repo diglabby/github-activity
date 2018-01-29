@@ -1,4 +1,4 @@
-# Fork of GitHub Activity Stream Widget
+# Модуль гитхаб активности.
 
 
 Данный модуль является форком [данного модуля](https://github.com/caseyscarborough/github-activity). Наш модуль может отражать активность не только
