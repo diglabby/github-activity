@@ -3,8 +3,12 @@
 
 Данный модуль является форком [данного модуля](https://github.com/caseyscarborough/github-activity). Наш модуль может отражать активность не только
 какого-то одного аккаунта или репозитория, а позволяет выводить на экран неограниченное их количество. Далее приводим текст установки  модуля: 
+
+
 Для начала необходимо скачать архив с github: https://github.com/diglabby/github-activity/archive/master.zip После этого содержимое папки github-activity внутри архива необходимо распокавать в корень папки вашего сайта. Следом подключаем необходимые файлы в хэдере вашего html-файла:
 
+
+```
 <head>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css">
 <link rel="stylesheet" href="src/github-activity.css">
@@ -14,6 +18,8 @@
 <script type="text/javascript" src="src/github-activity.js"></script>
 <script>
 </head>
+```
+
 ```
 ## Возможны два варианта использования модуля:
 1) Оригинальная функциональность. Для ее достижение мы не указываемсвойства handler и repositories. Модуль будет отображать только активность одного пользователя указанного в свойстве username или активность одного репозитория, указанного в  свойствем repository. 
