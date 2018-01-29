@@ -22,13 +22,14 @@
 ```
 ## 
 После внутри body своего html-файл мы создаем объект нашего модуля, внутри которого мы вводим конфигурационные данные таким манером:
-```
+```js
 GitHubActivity.feed({
 	username: "diglabby", // optional
   handler: "handler.php", // optional
   repositories: {
   diglabby:["b-prylady","liga"],
-  MrKarlKori:"MrKarlKori",
+  MrKarlKori:"MrKarlKori"
+  }, // optional
 	
 	selector: "#feed",
 	limit: 20 // optional
