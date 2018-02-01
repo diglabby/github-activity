@@ -43,8 +43,8 @@ GitHubActivity.feed({
   repository: "your-repository",  // optional
   handler: "github-activity/handler.php", // optional
   repositories: {
-  	diglabby:["b-prylady","liga"],
-  	MrKarlKori:"MrKarlKori"
+  	username: ["repository1","repository2","repository3"],
+  	Username1:"Username1"
   	}, // optional
   selector: "#feed",
   limit: 20 // optional
@@ -69,19 +69,18 @@ GitHubActivity.feed({
 
 1. Для добавления всей активности конкретного пользователя, создаётся ключ в виде имени пользователя, которому строкой присвоено значение в виде этого же имени:  
 	```js
-	MrKarlKori:"MrKarlKori"
+	Username1:"Username1"
 	```
 2. Для добавления активности выбранных репозиториев одного пользователя, создаётся свойство с ключём в виде имени пользователя, хранящего значения в виде массива. Каждый элемент этого массива должен являться именем репозитория, принадлежащего указанному пользователю.
 	```js
-	username: ["repository1","repository2"]
+	username: ["repository1","repository2","repository3"]
 	```
    
 **По итогу свойство repositories должно иметь примерно такой вид:**
 ```js
 repositories: {
-  user:["repository1","repository2","repository3"],
-  Username1:"Username1",
-  Username2:"Username2"
+  username:["repository1","repository2","repository3"],
+  Username1:"Username1"
   }
 ```
 
